@@ -368,8 +368,53 @@ def select_round_clients(num_clients, client_fraction, seed):
     # Return indices in sorted order.
     return sorted(selected.tolist())
 
-# Step 18 - run_communication_round (not yet solved)
-# TODO: implement
+# Step 18 - run_communication_round
+def run_communication_round(
+    global_state,
+    client_partitions,
+    selected_clients,
+    model_config,
+    local_epochs,
+    batch_size,
+    learning_rate,
+    seed
+):
+    client_states = []
+    client_sample_counts = []
+
+    for client_idx in selected_clients:
+        # Build a fresh model for this client.
+        model = build_mlp_classifier(
+            model_config["input_size"],
+            model_config["hidden_size"],
+            model_config["num_classes"]
+        )
+
+        # Load the current global parameters.
+        load_model_state(model, global_state)
+
+        # Get this client's local data.
+        client_features, client_labels = client_partitions[client_idx]
+
+        # Train locally starting from the global state.
+        client_state = train_client_local(
+            model,
+            client_features,
+            client_labels,
+            local_epochs,
+            batch_size,
+            learning_rate,
+            seed + client_idx
+        )
+
+        client_states.append(client_state)
+        client_sample_counts.append(client_features.shape[0])
+
+    # Aggregate selected clients using sample-weighted FedAvg.
+    return aggregate_weighted_average(
+        client_states,
+        client_sample_counts
+    )
 
 # Step 19 - evaluate_accuracy (not yet solved)
 # TODO: implement
