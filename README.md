@@ -37,6 +37,17 @@ python scaffold.py
 - [x] **25.** rounds_to_target_vs_local_epochs
 - [x] **26.** accuracy_vs_client_fraction
 
----
+## Results
 
-Built on Deep-ML.
+```
+dataset: features=(300, 8) labels=(300,)
+train=225 examples  test=75 examples
+IID samples per client: [45, 45, 45, 45, 45]
+non-IID samples per client: [46, 44, 45, 45, 45]
+FedAvg per-round test accuracy: [0.427, 0.413, 0.4, 0.413, 0.427, 0.373]
+final FedAvg accuracy: 0.373
+IID final=0.373  non-IID final=0.373  gap={'iid_final': 0.3733333349227905, 'non_iid_final': 0.3733333349227905, 'gap': 0.0}
+centralized baseline accuracy: 0.440
+rounds-to-target vs local epochs: {1: None, 2: None, 4: None}
+accuracy vs client fraction: {0.2: 0.41333332657814026, 0.6: 0.3733333349227905, 1.0: 0.4000000059604645}
+```
