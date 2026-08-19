@@ -205,8 +205,26 @@ def compute_batch_loss(model, batch_features, batch_labels):
 
     return loss
 
-# Step 9 - local_sgd_step (not yet solved)
-# TODO: implement
+# Step 9 - local_sgd_step
+def local_sgd_step(model, optimizer, batch_features, batch_labels):
+    # Clear gradients from the previous update.
+    optimizer.zero_grad()
+
+    # Compute the batch loss.
+    loss = compute_batch_loss(
+        model,
+        batch_features,
+        batch_labels
+    )
+
+    # Compute gradients.
+    loss.backward()
+
+    # Update model parameters in place.
+    optimizer.step()
+
+    # Return the loss as a plain Python float.
+    return loss.item()
 
 # Step 10 - train_client_local (not yet solved)
 # TODO: implement
