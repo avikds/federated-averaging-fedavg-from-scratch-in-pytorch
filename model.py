@@ -274,8 +274,13 @@ def clone_model_state(model):
         for name, tensor in model.state_dict().items()
     }
 
-# Step 12 - load_model_state (not yet solved)
-# TODO: implement
+# Step 12 - load_model_state
+def load_model_state(model, state_dict):
+    # Load the provided parameters and buffers into the model.
+    model.load_state_dict(state_dict)
+
+    # Return the same model object for chaining.
+    return model
 
 # Step 13 - initialize_global_state (not yet solved)
 # TODO: implement
