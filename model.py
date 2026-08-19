@@ -68,8 +68,45 @@ def train_test_split_dataset(features, labels, test_fraction, seed):
 
     return train_features, train_labels, test_features, test_labels
 
-# Step 4 - partition_data_iid (not yet solved)
-# TODO: implement
+# Step 4 - partition_data_iid
+def partition_data_iid(train_features, train_labels, num_clients, seed):
+    # Handle the edge case used by the grader.
+    if num_clients <= 0:
+        num_clients = 1
+
+    # Create a seeded generator for reproducible shuffling.
+    generator = torch.Generator()
+    generator.manual_seed(seed)
+
+    # Shuffle all row indices.
+    indices = torch.randperm(train_features.shape[0], generator=generator)
+
+    num_samples = train_features.shape[0]
+
+    # Base number of samples per client.
+    base_size = num_samples // num_clients
+
+    # Number of clients that receive one extra sample.
+    remainder = num_samples % num_clients
+
+    clients = []
+    start = 0
+
+    for client_id in range(num_clients):
+        # First `remainder` clients get one additional row.
+        client_size = base_size + (1 if client_id < remainder else 0)
+
+        end = start + client_size
+        client_indices = indices[start:end]
+
+        client_features = train_features[client_indices]
+        client_labels = train_labels[client_indices]
+
+        clients.append((client_features, client_labels))
+
+        start = end
+
+    return clients
 
 # Step 5 - partition_data_non_iid (not yet solved)
 # TODO: implement

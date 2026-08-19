@@ -13,7 +13,7 @@ python scaffold.py
 - [x] **1.** build_mlp_classifier
 - [x] **2.** build_synthetic_dataset
 - [x] **3.** train_test_split_dataset
-- [ ] **4.** partition_data_iid
+- [x] **4.** partition_data_iid
 - [ ] **5.** partition_data_non_iid
 - [ ] **6.** count_client_samples
 - [ ] **7.** iterate_client_batches
