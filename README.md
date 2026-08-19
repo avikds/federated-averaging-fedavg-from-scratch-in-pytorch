@@ -25,7 +25,7 @@ python scaffold.py
 - [x] **13.** initialize_global_state
 - [x] **14.** add_state_dicts
 - [x] **15.** scale_state_dict
-- [ ] **16.** aggregate_weighted_average
+- [x] **16.** aggregate_weighted_average
 - [ ] **17.** select_round_clients
 - [ ] **18.** run_communication_round
 - [ ] **19.** evaluate_accuracy
