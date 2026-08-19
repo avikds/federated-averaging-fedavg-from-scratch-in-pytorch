@@ -310,8 +310,13 @@ def add_state_dicts(state_a, state_b):
         for key in state_a
     }
 
-# Step 15 - scale_state_dict (not yet solved)
-# TODO: implement
+# Step 15 - scale_state_dict
+def scale_state_dict(state_dict, weight):
+    # Create a new state dict without modifying the original.
+    return {
+        key: tensor * weight
+        for key, tensor in state_dict.items()
+    }
 
 # Step 16 - aggregate_weighted_average (not yet solved)
 # TODO: implement
