@@ -22,7 +22,7 @@ python scaffold.py
 - [x] **10.** train_client_local
 - [x] **11.** clone_model_state
 - [x] **12.** load_model_state
-- [ ] **13.** initialize_global_state
+- [x] **13.** initialize_global_state
 - [ ] **14.** add_state_dicts
 - [ ] **15.** scale_state_dict
 - [ ] **16.** aggregate_weighted_average

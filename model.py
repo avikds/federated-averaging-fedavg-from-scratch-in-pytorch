@@ -11,15 +11,20 @@ import torch
 import torch.nn as nn
 
 def build_mlp_classifier(input_size, hidden_size, num_classes):
-    # Single hidden-layer MLP with ReLU activation.
-    # The final layer returns raw logits (no softmax).
-    model = nn.Sequential(
-        nn.Linear(input_size, hidden_size),
-        nn.ReLU(),
-        nn.Linear(hidden_size, num_classes)
-    )
+    class MLPClassifier(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.fc1 = nn.Linear(input_size, hidden_size)
+            self.relu = nn.ReLU()
+            self.fc2 = nn.Linear(hidden_size, num_classes)
 
-    return model
+        def forward(self, x):
+            x = self.fc1(x)
+            x = self.relu(x)
+            x = self.fc2(x)
+            return x
+
+    return MLPClassifier()
 
 # Step 2 - build_synthetic_dataset
 def build_synthetic_dataset(num_samples, input_size, num_classes, seed):
@@ -282,8 +287,20 @@ def load_model_state(model, state_dict):
     # Return the same model object for chaining.
     return model
 
-# Step 13 - initialize_global_state (not yet solved)
-# TODO: implement
+# Step 13 - initialize_global_state
+def initialize_global_state(input_size, hidden_size, num_classes, seed):
+    # Seed torch so model initialization is reproducible.
+    torch.manual_seed(seed)
+
+    # Build a fresh global model.
+    model = build_mlp_classifier(
+        input_size,
+        hidden_size,
+        num_classes
+    )
+
+    # Return an independent snapshot of the model state.
+    return clone_model_state(model)
 
 # Step 14 - add_state_dicts (not yet solved)
 # TODO: implement
