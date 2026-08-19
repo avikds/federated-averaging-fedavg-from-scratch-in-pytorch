@@ -637,8 +637,20 @@ def run_fedavg_non_iid(
     # Return the final global model and per-round accuracy history.
     return model, accuracies
 
-# Step 24 - compute_non_iid_gap (not yet solved)
-# TODO: implement
+# Step 24 - compute_non_iid_gap
+def compute_non_iid_gap(iid_accuracies, non_iid_accuracies):
+    # Read the final accuracy from each curve.
+    iid_final = float(iid_accuracies[-1])
+    non_iid_final = float(non_iid_accuracies[-1])
+
+    # Compute how much lower the non-IID final accuracy is.
+    gap = iid_final - non_iid_final
+
+    return {
+        "iid_final": iid_final,
+        "non_iid_final": non_iid_final,
+        "gap": float(gap)
+    }
 
 # Step 25 - rounds_to_target_vs_local_epochs (not yet solved)
 # TODO: implement

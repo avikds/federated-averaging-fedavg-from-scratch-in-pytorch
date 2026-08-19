@@ -33,7 +33,7 @@ python scaffold.py
 - [x] **21.** train_centralized_baseline
 - [x] **22.** run_fedavg_iid
 - [x] **23.** run_fedavg_non_iid
-- [ ] **24.** compute_non_iid_gap
+- [x] **24.** compute_non_iid_gap
 - [ ] **25.** rounds_to_target_vs_local_epochs
 - [ ] **26.** accuracy_vs_client_fraction
 
