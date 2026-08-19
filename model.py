@@ -504,8 +504,56 @@ def run_fedavg(
 
     return final_model, accuracies
 
-# Step 21 - train_centralized_baseline (not yet solved)
-# TODO: implement
+# Step 21 - train_centralized_baseline
+def train_centralized_baseline(
+    train_features,
+    train_labels,
+    test_features,
+    test_labels,
+    model_config,
+    num_epochs,
+    batch_size,
+    learning_rate,
+    seed
+):
+    # Build a fresh model.
+    model = build_mlp_classifier(
+        model_config["input_size"],
+        model_config["hidden_size"],
+        model_config["num_classes"]
+    )
+
+    # Create the SGD optimizer.
+    optimizer = torch.optim.SGD(
+        model.parameters(),
+        lr=learning_rate
+    )
+
+    # Train for the requested number of epochs.
+    for epoch in range(num_epochs):
+        # Reshuffle the pooled training data each epoch.
+        batches = iterate_client_batches(
+            train_features,
+            train_labels,
+            batch_size,
+            seed + epoch
+        )
+
+        # Perform one SGD update per batch.
+        for batch_features, batch_labels in batches:
+            local_sgd_step(
+                model,
+                optimizer,
+                batch_features,
+                batch_labels
+            )
+
+    # Evaluate the trained centralized model.
+    return evaluate_accuracy(
+        model,
+        test_features,
+        test_labels
+    )
 
 # Step 22 - run_fedavg_iid (not yet solved)
 # TODO: implement

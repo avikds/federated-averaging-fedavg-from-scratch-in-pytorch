@@ -30,7 +30,7 @@ python scaffold.py
 - [x] **18.** run_communication_round
 - [x] **19.** evaluate_accuracy
 - [x] **20.** run_fedavg
-- [ ] **21.** train_centralized_baseline
+- [x] **21.** train_centralized_baseline
 - [ ] **22.** run_fedavg_iid
 - [ ] **23.** run_fedavg_non_iid
 - [ ] **24.** compute_non_iid_gap
