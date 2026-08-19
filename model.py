@@ -170,8 +170,27 @@ def count_client_samples(client_partitions):
     # Return the number of samples held by each client.
     return [client_features.shape[0] for client_features, _ in client_partitions]
 
-# Step 7 - iterate_client_batches (not yet solved)
-# TODO: implement
+# Step 7 - iterate_client_batches
+def iterate_client_batches(client_features, client_labels, batch_size, seed):
+    # Create a seeded generator for reproducible shuffling.
+    generator = torch.Generator()
+    generator.manual_seed(seed)
+
+    # Shuffle the client's row indices.
+    indices = torch.randperm(client_features.shape[0], generator=generator)
+
+    batches = []
+
+    # Slice the shuffled data into mini-batches.
+    for start in range(0, client_features.shape[0], batch_size):
+        batch_indices = indices[start:start + batch_size]
+
+        batch_features = client_features[batch_indices]
+        batch_labels = client_labels[batch_indices]
+
+        batches.append((batch_features, batch_labels))
+
+    return batches
 
 # Step 8 - compute_batch_loss (not yet solved)
 # TODO: implement
