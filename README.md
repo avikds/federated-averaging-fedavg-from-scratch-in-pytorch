@@ -15,7 +15,7 @@ python scaffold.py
 - [x] **3.** train_test_split_dataset
 - [x] **4.** partition_data_iid
 - [x] **5.** partition_data_non_iid
-- [ ] **6.** count_client_samples
+- [x] **6.** count_client_samples
 - [ ] **7.** iterate_client_batches
 - [ ] **8.** compute_batch_loss
 - [ ] **9.** local_sgd_step
