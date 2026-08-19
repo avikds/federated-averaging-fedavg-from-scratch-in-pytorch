@@ -416,8 +416,20 @@ def run_communication_round(
         client_sample_counts
     )
 
-# Step 19 - evaluate_accuracy (not yet solved)
-# TODO: implement
+# Step 19 - evaluate_accuracy
+def evaluate_accuracy(model, test_features, test_labels):
+    # Put the model in evaluation mode.
+    model.eval()
+
+    # Run inference without tracking gradients.
+    with torch.no_grad():
+        logits = model(test_features)
+        predictions = torch.argmax(logits, dim=1)
+
+        # Compute the fraction of correct predictions.
+        accuracy = (predictions == test_labels).float().mean()
+
+    return accuracy.item()
 
 # Step 20 - run_fedavg (not yet solved)
 # TODO: implement

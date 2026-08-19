@@ -28,7 +28,7 @@ python scaffold.py
 - [x] **16.** aggregate_weighted_average
 - [x] **17.** select_round_clients
 - [x] **18.** run_communication_round
-- [ ] **19.** evaluate_accuracy
+- [x] **19.** evaluate_accuracy
 - [ ] **20.** run_fedavg
 - [ ] **21.** train_centralized_baseline
 - [ ] **22.** run_fedavg_iid
