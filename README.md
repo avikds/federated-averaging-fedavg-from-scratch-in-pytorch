@@ -23,7 +23,7 @@ python scaffold.py
 - [x] **11.** clone_model_state
 - [x] **12.** load_model_state
 - [x] **13.** initialize_global_state
-- [ ] **14.** add_state_dicts
+- [x] **14.** add_state_dicts
 - [ ] **15.** scale_state_dict
 - [ ] **16.** aggregate_weighted_average
 - [ ] **17.** select_round_clients
