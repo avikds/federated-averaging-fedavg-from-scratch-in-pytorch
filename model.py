@@ -266,8 +266,13 @@ def train_client_local(
     # Return the trained model parameters.
     return model.state_dict()
 
-# Step 11 - clone_model_state (not yet solved)
-# TODO: implement
+# Step 11 - clone_model_state
+def clone_model_state(model):
+    # Create an independent snapshot of every parameter and buffer.
+    return {
+        name: tensor.detach().clone()
+        for name, tensor in model.state_dict().items()
+    }
 
 # Step 12 - load_model_state (not yet solved)
 # TODO: implement

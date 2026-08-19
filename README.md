@@ -20,7 +20,7 @@ python scaffold.py
 - [x] **8.** compute_batch_loss
 - [x] **9.** local_sgd_step
 - [x] **10.** train_client_local
-- [ ] **11.** clone_model_state
+- [x] **11.** clone_model_state
 - [ ] **12.** load_model_state
 - [ ] **13.** initialize_global_state
 - [ ] **14.** add_state_dicts
