@@ -289,17 +289,17 @@ def load_model_state(model, state_dict):
 
 # Step 13 - initialize_global_state
 def initialize_global_state(input_size, hidden_size, num_classes, seed):
-    # Seed torch so model initialization is reproducible.
+    # Make model initialization reproducible.
     torch.manual_seed(seed)
 
-    # Build a fresh global model.
+    # Build the initial global model.
     model = build_mlp_classifier(
         input_size,
         hidden_size,
         num_classes
     )
 
-    # Return an independent snapshot of the model state.
+    # Return detached, independent copies of all parameters.
     return clone_model_state(model)
 
 # Step 14 - add_state_dicts (not yet solved)
