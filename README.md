@@ -29,7 +29,7 @@ python scaffold.py
 - [x] **17.** select_round_clients
 - [x] **18.** run_communication_round
 - [x] **19.** evaluate_accuracy
-- [ ] **20.** run_fedavg
+- [x] **20.** run_fedavg
 - [ ] **21.** train_centralized_baseline
 - [ ] **22.** run_fedavg_iid
 - [ ] **23.** run_fedavg_non_iid
