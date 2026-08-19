@@ -108,8 +108,62 @@ def partition_data_iid(train_features, train_labels, num_clients, seed):
 
     return clients
 
-# Step 5 - partition_data_non_iid (not yet solved)
-# TODO: implement
+# Step 5 - partition_data_non_iid
+def partition_data_non_iid(
+    train_features,
+    train_labels,
+    num_clients,
+    shards_per_client,
+    seed
+):
+    # Validate the number of clients.
+    if num_clients <= 0:
+        raise ValueError("num_clients must be greater than 0")
+
+    if shards_per_client <= 0:
+        raise ValueError("shards_per_client must be greater than 0")
+
+    num_samples = train_features.shape[0]
+    num_shards = num_clients * shards_per_client
+
+    if num_shards > num_samples:
+        raise ValueError(
+            "num_clients * shards_per_client cannot exceed the number of samples"
+        )
+
+    # Sort examples by label so that nearby indices belong to the same
+    # or similar classes.
+    sorted_indices = torch.argsort(train_labels)
+
+    # Create contiguous shards from the label-sorted data.
+    shards = torch.tensor_split(sorted_indices, num_shards)
+
+    # Shuffle the shards, not the individual examples.
+    # This preserves the label concentration inside each shard.
+    generator = torch.Generator()
+    generator.manual_seed(seed)
+
+    shard_order = torch.randperm(num_shards, generator=generator)
+
+    clients = []
+
+    # Give each client exactly `shards_per_client` shards.
+    for client_id in range(num_clients):
+        start = client_id * shards_per_client
+        end = start + shards_per_client
+
+        selected_shards = [
+            shards[i] for i in shard_order[start:end]
+        ]
+
+        client_indices = torch.cat(selected_shards)
+
+        client_features = train_features[client_indices]
+        client_labels = train_labels[client_indices]
+
+        clients.append((client_features, client_labels))
+
+    return clients
 
 # Step 6 - count_client_samples (not yet solved)
 # TODO: implement
