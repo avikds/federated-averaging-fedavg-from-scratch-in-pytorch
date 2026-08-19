@@ -456,14 +456,14 @@ def run_fedavg(
 
     # Run the requested number of communication rounds.
     for round_idx in range(num_rounds):
-        # Select participating clients for this round.
+        # Select clients for this communication round.
         selected_clients = select_round_clients(
             len(client_partitions),
             client_fraction,
             seed + round_idx
         )
 
-        # Train selected clients and aggregate their local models.
+        # Train selected clients and aggregate their states.
         global_state = run_communication_round(
             global_state,
             client_partitions,
@@ -475,15 +475,16 @@ def run_fedavg(
             seed + round_idx
         )
 
-        # Build a fresh model with the updated global state.
+        # Build a fresh global model and load the updated state.
         model = build_mlp_classifier(
             model_config["input_size"],
             model_config["hidden_size"],
             model_config["num_classes"]
         )
+
         load_model_state(model, global_state)
 
-        # Evaluate the global model after this round.
+        # Evaluate after this communication round.
         accuracy = evaluate_accuracy(
             model,
             test_features,
@@ -492,12 +493,13 @@ def run_fedavg(
 
         accuracies.append(accuracy)
 
-    # Load the final global state into a fresh model.
+    # Build the final model from the final global state.
     final_model = build_mlp_classifier(
         model_config["input_size"],
         model_config["hidden_size"],
         model_config["num_classes"]
     )
+
     load_model_state(final_model, global_state)
 
     return final_model, accuracies
